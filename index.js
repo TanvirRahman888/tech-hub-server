@@ -26,12 +26,21 @@ async function run() {
 
         const myDB = client.db("tech-hub");
         const usersCollection = myDB.collection("users");
+        const cartItems = myDB.collection("cartItems");
 
         // add user to database
         app.post('/user', async (req, res) => {
             const user = req.body;
             console.log("New User : ", user);
             const result = await usersCollection.insertOne(user)
+            res.send(result)
+
+        });
+
+        app.post('/cartitems', async (req, res) => {
+            const cart = req.body;
+            console.log("Cart item : ", cart);
+            const result = await cartItems.insertOne(cart)
             res.send(result)
 
         });
